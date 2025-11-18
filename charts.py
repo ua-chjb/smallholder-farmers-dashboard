@@ -12,7 +12,7 @@ from color import segment_colors_dct
 
 vc_country = pd.Series(tab1_data)
 
-geojson_url = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+geojson_url = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson"
 geojson = requests.get(geojson_url).json()
 
 tab1_geo_fig = px.choropleth_mapbox(

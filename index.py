@@ -7,69 +7,67 @@ import dash_mantine_components as dmc
 _dash_renderer._set_react_version('18.2.0')
 
 from data import tab1_data, tab2_data, tab3_data, tab4_data
-# from charts import tab1_geo_fig
-# tab1_geo_fig
-# tab1_pie_fig
+from charts import tab1_geo_fig
 from color import basic_layout
 
 # # # # # # # # # # # # # # basic layout # # # # # # # # # # # # # # 
 
 ############################################## tab 1 ##############################################
 
-# comp1_geo_fig_tab1 = dmc.Card(
-#     [
-#         dcc.Graph(figure=basic_layout(tab1_geo_fig), id="comp1_geo_fig_tab1", className="g")
-#     ],
-#     withBorder=True,
-#     shadow="sm",
-#     radius="md",
-#     className="t comp1_geo_card"
-# )
+comp1_geo_fig_tab1 = dmc.Card(
+    [
+        dcc.Graph(figure=basic_layout(tab1_geo_fig), id="comp1_geo_fig_tab1", className="g")
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp1_geo_card"
+)
 
-# comp3_text = dmc.Card(
-#     [
-#         dmc.Text(
-#             [
-#                 "DataKind DataKit: Smallholder Farmers"
-#             ],
-#             fw=500,
-#             size="l",
-#             className="text_header"
-#         ),
-#         dmc.Text(
-#             "Smallholder farmers are individuals or families who manage relatively small plots of land, often relying on family labor and traditional farming methods. Despite their small scale, they play a central role in global food systems, producing up to one-third of the world’s food supply and forming the backbone of rural economies across Africa, Asia, and Latin America. Their livelihoods are closely tied to the land and weather, making them both essential contributors to food security, and highly vulnerable to environmental and market changes.",
-#             c="gray",
-#             size="xs",
-#             className="text_standard_intro"
-#         ),
-#         dmc.Text(
-#             "Understanding smallholder farmers and the challenges they face is key for building resilient agricultural systems and sustainable rural development. By studying their behaviors and needs organizations can design better tools, information services, and policies that directly improve productivity, income, and climate resilience. Data-driven insights into their practices not only empower farmers themselves, but also strengthen local economies and contribute to broader goals such as poverty reduction and food sustainability.",
-#             c="gray",
-#             size="xs",
-#             className="text_standard_intro"
-#         ),
+comp3_text = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "DataKind DataKit: Smallholder Farmers"
+            ],
+            fw=500,
+            size="l",
+            className="text_header"
+        ),
+        dmc.Text(
+            "Smallholder farmers are individuals or families who manage relatively small plots of land, often relying on family labor and traditional farming methods. Despite their small scale, they play a central role in global food systems, producing up to one-third of the world’s food supply and forming the backbone of rural economies across Africa, Asia, and Latin America. Their livelihoods are closely tied to the land and weather, making them both essential contributors to food security, and highly vulnerable to environmental and market changes.",
+            c="gray",
+            size="xs",
+            className="text_standard_intro"
+        ),
+        dmc.Text(
+            "Understanding smallholder farmers and the challenges they face is key for building resilient agricultural systems and sustainable rural development. By studying their behaviors and needs organizations can design better tools, information services, and policies that directly improve productivity, income, and climate resilience. Data-driven insights into their practices not only empower farmers themselves, but also strengthen local economies and contribute to broader goals such as poverty reduction and food sustainability.",
+            c="gray",
+            size="xs",
+            className="text_standard_intro"
+        ),
 
-#     ],
-#     withBorder=True,
-#     shadow="sm",
-#     radius="md",
-#     className="t comp3_text_card"
-# )
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp3_text_card"
+)
 
-# inline_comp_3_0 = html.Div(
-#     [
-#         comp3_text,
-#     ],
-#     className="in inline_comp_3_0"
-# )
+inline_comp_3_0 = html.Div(
+    [
+        comp3_text,
+    ],
+    className="in inline_comp_3_0"
+)
 
-# tab1 = html.Div(
-#     [
-#         inline_comp_3_0,
-#         comp1_geo_fig_tab1
-#     ],
-#     className="d d1"
-# )
+tab1 = html.Div(
+    [
+        inline_comp_3_0,
+        comp1_geo_fig_tab1
+    ],
+    className="d d1"
+)
 
 
 ############################################## tab 2 ##############################################
@@ -345,8 +343,7 @@ Tabs = html.Div(
                     ]
                 ),
                 dmc.TabsPanel(
-                    # tab1,
-                    "",
+                    tab1,
                     value="Geography"
                 ),
                 dmc.TabsPanel(
