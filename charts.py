@@ -18,7 +18,7 @@ geojson = requests.get(geojson_url).json()
 tab1_geo_fig = px.choropleth_mapbox(
   vc_country,
   geojson = geojson,
-  featureidkey="properties.ISO3166-1-Alpha-2",
+  featureidkey="properties.ISO_A2",
   locations=vc_country.index,
   color=vc_country.values,
   color_continuous_scale="Mint",
