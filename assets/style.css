@@ -1,0 +1,146 @@
+/* reset */
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* mobile */
+
+.mn-1, .nm-2 {
+    display: None;
+}
+
+/* tabs */
+
+.tabs_main {
+    margin: 2vh 1vw;
+    margin-top:4vh;
+}
+
+.m_fc420b1f {
+    margin-right: 0.4em;
+}
+
+/* all emcompassing */
+.d {
+    display: grid;
+    /*height: 90vh;*/
+}
+
+.t {
+    margin: 2vh 0.5vw;
+}
+
+.in {
+    display: inline;
+}
+
+.f-parent {
+    display: flex;
+    justify-content: center;
+
+}
+
+.f-child {
+    width: 25vw;
+}
+
+./*g {
+    height: 100%;
+    width: 100%;
+}*/
+
+.text_header {
+    margin-bottom: 1vh;
+    display:flex;
+    align-items: center;
+}
+
+.text_standard_intro {
+    margin-bottom: 3vh;
+}
+
+.icons {
+    margin-right: 0.3em;
+}
+
+
+/* tab1 */
+
+.d1 {
+    grid-template-columns:1fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top:2vh;
+    height: 90vh;
+}
+
+.inline_comp_3_0 {
+    grid-column: 1/2;
+}
+
+.comp1_geo_card {
+    grid-column: 2/3;
+    grid-row: 1/3;
+}
+
+/* tab2 */
+.tab2_all {
+    height: 70vh;
+}
+
+.d2 {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+}
+
+.comp5_hist_fig_tab2_card {
+    grid-column: 1/2;
+    grid-row: 1/3;
+}
+
+.comp6_pie_fig_tab2_card {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+
+/* tab3*/
+.tab3_all {
+    height: 90vh;
+}
+
+/* title */
+
+.tit {
+    height: 20vh;
+    background-color: darkcyan;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* mobile */
+@media all and (max-width: 800px) {
+    .nm {
+        display: None;
+    }
+
+    .mn-1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 7vw;
+        color: white;
+        background-color: rgb(211, 82, 82);
+    }
+
+    .mn-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:100vh;
+
+    }
+}
