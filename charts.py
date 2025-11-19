@@ -140,6 +140,7 @@ def tab4_broad_bigfig(country_codes, segmentation_name, individual_segment_lst, 
       ],
       vertical_spacing=0.1,
       row_heights=[300] * len(broad_category_lst)
+
     )
 
     for idx_col, country in enumerate(country_codes):
@@ -167,7 +168,7 @@ def tab4_broad_bigfig(country_codes, segmentation_name, individual_segment_lst, 
 
     return bigfig.update_layout({
       "height": 300 * len(broad_category_lst)
-    })
+    }).update_yaxes({"matches": "y"})
 
 
 def tab4_niche_bigfig(country_codes, segmentation_name, individual_segment_lst, broad_category_lst, niche_category_lst, time_slice):
@@ -219,4 +220,4 @@ def tab4_niche_bigfig(country_codes, segmentation_name, individual_segment_lst, 
 
     return bigfig.update_layout({
       "height": 300 * len(niche_category_lst)
-    })
+    }).update_yaxes({"matches": "y"})
