@@ -40,7 +40,7 @@ def callbacks_master(app):
         if not individual_segment_lst:
             individual_segment_lst = ["1", "2", "3", "4", "5"]
         if not country:
-            country = tab2_data["count"]["question_user_country_code"].unique()
+            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()
         return basic_layout(
             tab3_bar_bigfig(
                 country, 
@@ -104,7 +104,7 @@ def callbacks_master(app):
         if not individual_segment_lst:
             individual_segment_lst = ["1", "2", "3", "4", "5"]
         if not country:
-            country = tab2_data["count"]["question_user_country_code"].unique()
+            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()
 
         if specificity=="Broad":
             return basic_layout(

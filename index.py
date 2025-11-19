@@ -16,7 +16,10 @@ from color import basic_layout
 
 comp1_geo_fig_tab1 = dmc.Card(
     [
-        dcc.Graph(figure=basic_layout(tab1_geo_fig), id="comp1_geo_fig_tab1", className="g")
+        dcc.Graph(
+            figure=basic_layout(tab1_geo_fig), 
+            id="comp1_geo_fig_tab1", 
+        )
     ],
     withBorder=True,
     shadow="sm",
@@ -76,16 +79,16 @@ comp4_dropdown_tab2 = dmc.Card(
         dmc.Select(
                 label="Country",
                 placeholder="select...",
-                value=tab2_data["count"]["question_user_country_code"].unique()[0],
-                data=tab2_data["count"]["question_user_country_code"].unique(),
+                value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique()[0],
+                data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
                 clearable=False,
                 id="comp4_dropdown_country_tab2_IN"
             ),
         dmc.Select(
                 label="Segmentation",
                 placeholder="select...",
-                value="count",
-                data=["count", "speed", "conversation_starters", "tenure"],
+                value="user_activity_post_count",
+                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
                 clearable=False,
                 id="comp4_dropdown_segmentation_tab2_IN"
             )
@@ -152,8 +155,8 @@ comp7_dropdown_tab3 = dmc.Card(
         dmc.MultiSelect(
             label="Country",
             placeholder="select...",
-            value=tab2_data["count"]["question_user_country_code"].unique(),
-            data=tab2_data["count"]["question_user_country_code"].unique(),
+            value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+            data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
             maxValues=2,
             clearable=False,
             id="comp7_dropdown_country_tab3_IN"
@@ -161,8 +164,8 @@ comp7_dropdown_tab3 = dmc.Card(
         dmc.Select(
                 label="Segmentation",
                 placeholder="...",
-                value="count",
-                data=["count", "speed", "conversation_starters", "tenure"],
+                value="user_activity_post_count",
+                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
                 clearable=False,
                 id="comp7_dropdown_segmentation_tab3_IN"
             ),
@@ -178,7 +181,7 @@ comp7_dropdown_tab3 = dmc.Card(
             label="Broad topic",
             placeholder="select multiple...",
             value=["livestock"],
-            data=tab3_data["niche"]["count"]["broad_type"].unique(),
+            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
             clearable=True,
             id="comp7_dropdown_b_topic_tab3_IN"
         )
@@ -232,8 +235,8 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.MultiSelect(
             label="Country",
             placeholder="select multiple...",
-            value=tab2_data["count"]["question_user_country_code"].unique(),
-            data=tab2_data["count"]["question_user_country_code"].unique(),
+            value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+            data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
             maxValues=2,
             clearable=False,
             id="comp9_dropdown_country_tab4_IN"
@@ -241,8 +244,8 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.Select(
                 label="Segmentation",
                 placeholder="select...",
-                value="count",
-                data=["count", "speed", "conversation_starters", "tenure"],
+                value="user_activity_post_count",
+                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
                 clearable=False,
                 id="comp9_dropdown_segmentation_tab4_IN"
             ),
@@ -258,7 +261,7 @@ comp9_dropdown_tab4 = dmc.Card(
             label="Broad topic",
             placeholder="select multiple...",
             value=["livestock"],
-            data=tab3_data["niche"]["count"]["broad_type"].unique(),
+            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
             maxValues=4,
             clearable=True,
             id="comp9_dropdown_b_topic_tab4_IN"
@@ -267,7 +270,7 @@ comp9_dropdown_tab4 = dmc.Card(
             label="Niche topic",
             placeholder="select multiple...",
             value=["animals"],
-            data=tab3_data["niche"]["count"]["niche"].unique(),
+            data=tab3_data["niche"]["user_activity_post_count"]["niche"].unique(),
             maxValues=4,
             clearable=True,
             id="comp9_dropdown_n_topic_tab4_IN"
@@ -275,8 +278,8 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.Select(
             label="Time slice",
             placeholder="select...",
-            value=list(tab4_data["broad"]["count"].keys())[0],
-            data=list(tab4_data["broad"]["count"].keys()),
+            value=list(tab4_data["broad"]["user_activity_post_count"].keys())[0],
+            data=list(tab4_data["broad"]["user_activity_post_count"].keys()),
             clearable=True,
             id="comp9_dropdown_time_tab4_IN"
         ) 
