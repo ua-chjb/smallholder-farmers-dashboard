@@ -44,7 +44,7 @@ comp3_text = dmc.Card(
             "Understanding smallholder farmers and the challenges they face is key for building resilient agricultural systems and sustainable rural development. By studying their behaviors and needs organizations can design better tools, information services, and policies that directly improve productivity, income, and climate resilience. Data-driven insights into their practices not only empower farmers themselves, but also strengthen local economies and contribute to broader goals such as poverty reduction and food sustainability.",
             c="gray",
             size="xs",
-            className="text_standard_intro"
+            className="text_standard_intro text_nomargin"
         ),
 
     ],

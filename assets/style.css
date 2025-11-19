@@ -56,6 +56,9 @@ h1, h2, h3, h4, h5, h6, p {
 .text_standard_intro {
     margin-bottom: 3vh;
 }
+.text_nomargin {
+    margin-bottom: 0;
+}
 
 .icons {
     margin-right: 0.3em;
