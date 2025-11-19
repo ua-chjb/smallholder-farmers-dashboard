@@ -445,7 +445,7 @@ footer = dmc.Card(
     withBorder=True,
     shadow="sm",
     radius="md",
-    className="t footie-all",
+    className="t footie-all nm",
 )
 
 # # # # # # # # # # # # # # mobile # # # # # # # # # # # # # #
