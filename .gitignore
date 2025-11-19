@@ -135,6 +135,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+datakit-sf-dashboard-1349c879911d.json
 app.yaml
 .env
 .envrc
