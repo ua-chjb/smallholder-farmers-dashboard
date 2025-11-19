@@ -75,7 +75,7 @@ comp4_dropdown_tab2 = dmc.Card(
     [
         dmc.Select(
                 label="Country",
-                placeholder="...",
+                placeholder="select...",
                 value=tab2_data["count"]["question_user_country_code"].unique()[0],
                 data=tab2_data["count"]["question_user_country_code"].unique(),
                 clearable=False,
@@ -83,7 +83,7 @@ comp4_dropdown_tab2 = dmc.Card(
             ),
         dmc.Select(
                 label="Segmentation",
-                placeholder="...",
+                placeholder="select...",
                 value="count",
                 data=["count", "speed", "conversation_starters", "tenure"],
                 clearable=False,
@@ -151,7 +151,7 @@ comp7_dropdown_tab3 = dmc.Card(
     [
         dmc.MultiSelect(
             label="Country",
-            placeholder="...",
+            placeholder="select...",
             value=tab2_data["count"]["question_user_country_code"].unique(),
             data=tab2_data["count"]["question_user_country_code"].unique(),
             maxValues=2,
@@ -169,15 +169,15 @@ comp7_dropdown_tab3 = dmc.Card(
         dmc.MultiSelect(
             label="Individual segments",
             placeholder="select multiple...",
-            value=["1", "2", "3", "4", "5"],
+            value=["1", "5"],
             data=["1", "2", "3", "4", "5"],
             clearable=False,
             id="comp7_dropdown_individual_segment_tab3_IN"
         ),
         dmc.MultiSelect(
             label="Broad topic",
-            placeholder="...",
-            value=[tab3_data["niche"]["count"]["broad_type"].unique()[0]],
+            placeholder="select multiple...",
+            value=["livestock"],
             data=tab3_data["niche"]["count"]["broad_type"].unique(),
             clearable=True,
             id="comp7_dropdown_b_topic_tab3_IN"
@@ -257,7 +257,7 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.MultiSelect(
             label="Broad topic",
             placeholder="select multiple...",
-            value=[tab3_data["niche"]["count"]["broad_type"].unique()[0]],
+            value=["livestock"],
             data=tab3_data["niche"]["count"]["broad_type"].unique(),
             maxValues=4,
             clearable=True,
@@ -266,7 +266,7 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.MultiSelect(
             label="Niche topic",
             placeholder="select multiple...",
-            value=[tab3_data["niche"]["count"]["niche"].unique()[0]],
+            value=["animals"],
             data=tab3_data["niche"]["count"]["niche"].unique(),
             maxValues=4,
             clearable=True,
@@ -368,26 +368,6 @@ Tabs = html.Div(
 )
 
 
-# # # # # # # # # # # # # # mobile # # # # # # # # # # # # # #
-
-mobile_component = html.Div(
-    [
-        dmc.Card(
-            [
-                dmc.Text(
-                    "This dashboard is not optimized for mobile. Please access from a desktop.",
-                    size="xs",
-                )
-            ],
-            withBorder=True,
-            shadow="sm",
-            radius="md",
-            className="mn-1"
-        )
-    ],
-    className="mn-2"
-)
-
 # # # # # # # # # # # # # # title # # # # # # # # # # # # # #
 
 
@@ -405,13 +385,95 @@ title = dmc.Card(
     className="t tit nm",
 )
 
+# # # # # # # # # # # # # # footer # # # # # # # # # # # # # #
 
+color = "white"
+
+icon_datakind = html.Img(src="/assets/DK_LOGO_R_ORG-2.png", style={"width": "100px"})
+link_datakind = "https://www.datakind.org/"
+
+icon_producers_direct = html.Img(src="/assets/Producers-Direct_Logo_500x500.png", style={"width": "100px"})
+link_producers_direct = "https://producersdirect.org/"
+
+
+comp32_datakind = dmc.Anchor(
+    icon_datakind, href=link_datakind, target="_blank",
+    size="xl",
+    className="footnt-child"
+)
+
+comp33_producers_direct = dmc.Anchor(
+    icon_producers_direct, href=link_producers_direct, target="_blank",
+    size="xl",
+    className="footnt-child"
+)
+
+comp25_copyrightfooter = html.P(
+    "© Benjamin Noyes 2025 all rights reserved",
+    className="footertinytext"
+)
+
+comp34_datakind_parent = html.Div(
+    [
+        comp32_datakind
+    ],
+    className="footnt-parent"
+)
+
+comp35_datakind_parent = html.Div(
+    [
+        comp33_producers_direct
+    ],
+    className="footnt-parent"
+)
+
+
+comp26_icons = html.Div(
+    [
+        comp34_datakind_parent,
+        comp35_datakind_parent
+    ],
+    className="footie-middle"
+)
+
+
+footer = dmc.Card(
+    [
+        comp26_icons,
+        comp25_copyrightfooter
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t footie-all",
+)
+
+# # # # # # # # # # # # # # mobile # # # # # # # # # # # # # #
+
+mobile_error = html.Div(
+    [
+        dmc.Card(
+            [
+                dmc.Text(
+                    "This dashboard is not optimized for mobile. Please access from a desktop.",
+                    size="xs",
+                )
+            ],
+            withBorder=True,
+            shadow="sm",
+            radius="md",
+            className="mn-1"
+        )
+    ],
+    className="mn-2"
+)
 ############################### composition ##################################
 
 lyt = dmc.MantineProvider(
     [
         title,
         Tabs,
-        mobile_component
+        footer,
+        mobile_error
     ]
 )

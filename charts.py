@@ -47,7 +47,7 @@ def tab2_hist_fig(country_code, segmentation_name):
 
   return fig.update_layout({
     "title": {"text": f"{country_code}, {segmentation_name}", "x": 0.5},
-    "xaxis": {"title": "segments"}
+    "xaxis": {"title": "segments"},
   })
 
 
@@ -68,7 +68,7 @@ def tab2_pie_fig(country_code, segmentation_name):
 
   return fig.update_layout({
     "title": {"text": f"{country_code}, {segmentation_name}", "x": 0.5},
-    "showlegend": False
+    "showlegend": False,
   })
 
 ############################################## tab 3 ##############################################
@@ -103,7 +103,7 @@ def tab3_bar_bigfig(country_codes, segmentation_name, individual_segment_lst, br
         go.Bar(
           x=df_trace_broad["category"],
           y=df_trace_broad["pct"],
-          showlegend=False,
+          showlegend=(idx==0),
           marker={
             "color": df_trace_broad["segment_color"],
           },
@@ -159,7 +159,7 @@ def tab4_broad_bigfig(country_codes, segmentation_name, individual_segment_lst, 
               mode="lines+markers",
               marker={"color": df_segment["segment_color"].values},
               line={"color": df_segment["segment_color"].iloc[0]},
-              showlegend=(idx_row==0),
+              showlegend=(idx_row==0 and idx_col==0),
               name=segment
             ),
             row=idx_row+1, col=idx_col+1

@@ -1,9 +1,10 @@
 import boto3
 import os
-from dotenv import load_dotenv
 import pickle
 
-load_dotenv()
+if  os.getenv("GAR_ENV") is None:
+    from dotenv import load_dotenv
+    load_dotenv()
 
 aws_access_key = os.environ["AWS_ACCESS_KEY_ID"]
 aws_secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
