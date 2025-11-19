@@ -380,7 +380,12 @@ title = dmc.Card(
             "Smallholder Farmers in East Africa",
             size="xl",
             fw=600
-            )
+            ),
+        dmc.Text(
+            "WeFarm social media: English content responders",
+            size="sm",
+            fw=600
+            )        
     ],
     withBorder=True,
     shadow="sm",
