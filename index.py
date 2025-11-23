@@ -76,6 +76,14 @@ tab1 = html.Div(
 ############################################## tab 2 ##############################################
 comp4_dropdown_tab2 = dmc.Card(
     [
+        dmc.Text(
+            [
+                "Basic segments"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
         dmc.Select(
                 label="Country",
                 placeholder="select...",
@@ -88,7 +96,7 @@ comp4_dropdown_tab2 = dmc.Card(
                 label="Segmentation",
                 placeholder="select...",
                 value="user_activity_post_count",
-                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
+                data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp4_dropdown_segmentation_tab2_IN"
             )
@@ -132,10 +140,34 @@ comp6_pie_fig_tab2 = dmc.Card(
     className="t comp6_pie_fig_tab2_card"   
 )
 
+comp14_description_text_tab2 = dmc.Card(
+    [
+        dmc.Text(
+            dcc.Markdown(
+                "The notebook that defines the segment bins can be found [here] (https://github.com/datakind/datakit-smallholder-farmers-fall-2025/blob/main/Challenge%203_Community%20Leaders/benjamin_noyes/05_groupby_segmentation/DataKit_Challenge_3_identifying_community_leaders_leader_analysis_groupbys%20(3).ipynb). Generally, each basic segment comprises at least 5% of the data.",
+                link_target="_blank",
+            ),
+            size="xs",
+            c="gray"
+        )
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp14_description_tab2_card",
+)
+comp14_description_text_inline_tab2 = html.Div(
+    [
+        comp14_description_text_tab2
+    ],
+    className="in"
+)
+
 grid_tab2 = html.Div(
     [
         comp5_hist_fig_tab2,
-        comp6_pie_fig_tab2
+        comp14_description_text_inline_tab2,
+        comp6_pie_fig_tab2        
     ],
     className="d d2"
 
@@ -149,12 +181,115 @@ tab2 = html.Div(
     className="a tab2_all"
 )
 
+
+############################################## tab 5 (2.5, between 2 and 3) ##############################################
+
+comp19_dropdown_cs_tab5 = dmc.Card(
+ [
+        dmc.Text(
+            [
+                "Custom segment"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.Select(
+            label="user_activity_post_count",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp19_dropdown_ua_cs_tab5_IN"
+        ),
+        dmc.Select(
+            label="speed_post_response",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp19_dropdown_spr_cs_tab5_IN"
+        ),
+        dmc.Select(
+            label="unique_askers",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp19_dropdown_cs_cs_tab5_IN"
+        ),
+        dmc.Select(
+            label="tenure",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp19_dropdown_ten_cs_tab5_IN"
+        ),
+        html.Div(
+            [
+                dmc.Badge(
+                    id="comp19_cs_text_tab5_OUT",
+                    size="lg",
+                    variant="filled",
+                    radius="xl",
+                    color="#9F90E8",
+                    style={"color": "white"}
+                )
+            ],
+            className="flex-parent"
+        )
+        
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t f-child comp19_cs_dropdown_tab5_card"
+)
+
+comp20_funnel_fig_tab5 = dmc.Card(
+    [   
+        dcc.Graph(
+            figure={},
+            id="comp20_funnel_fig_tab5_OUT"
+        )
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp20_funnel_fig_tab5"
+)
+
+
+comp21_center_filter_tab5 = html.Div(
+    [
+        comp19_dropdown_cs_tab5
+    ],
+    className="f f-parent"
+)
+
+tab5 = html.Div(
+    [
+        comp21_center_filter_tab5,
+        comp20_funnel_fig_tab5
+    ],
+    className="a tab5_all"
+)
+
 ############################################## tab 3 ##############################################
 comp7_dropdown_tab3 = dmc.Card(
     [
+        dmc.Text(
+            [
+                "Basic segments"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
         dmc.MultiSelect(
             label="Country",
-            placeholder="select...",
+            placeholder="select multiple...",
             value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
             data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
             maxValues=2,
@@ -165,26 +300,18 @@ comp7_dropdown_tab3 = dmc.Card(
                 label="Segmentation",
                 placeholder="...",
                 value="user_activity_post_count",
-                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
+                data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp7_dropdown_segmentation_tab3_IN"
             ),
         dmc.MultiSelect(
             label="Individual segments",
             placeholder="select multiple...",
-            value=["1", "5"],
+            value=["1", "2", "3", "4", "5"],
             data=["1", "2", "3", "4", "5"],
             clearable=False,
             id="comp7_dropdown_individual_segment_tab3_IN"
         ),
-        dmc.MultiSelect(
-            label="Broad topic",
-            placeholder="select multiple...",
-            value=["livestock"],
-            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
-            clearable=True,
-            id="comp7_dropdown_b_topic_tab3_IN"
-        )
     ],
     withBorder=True,
     shadow="sm",
@@ -192,9 +319,165 @@ comp7_dropdown_tab3 = dmc.Card(
     className="t f-child comp7_dropdown_tab3_card"
 )
 
+comp15_topic_dropdown_tab3 = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "Topic"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ), 
+        dmc.MultiSelect(
+            label="Broad topic",
+            placeholder="select multiple...",
+            value=["livestock"],
+            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
+            clearable=True,
+            maxValues=4,
+            id="comp7_dropdown_b_topic_tab3_IN"
+        )        
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp15_topic_dropdown_tab3_card"    
+)
+
+
+comp12_customsegment1_dropdown_tab3 = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "Custom segment 1"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.Select(
+            label="user_activity_post_count",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp12_dropdown_ua_cs1_tab3_IN"
+        ),
+        dmc.Select(
+            label="speed_post_response",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp12_dropdown_spr_cs1_tab3_IN"
+        ),
+        dmc.Select(
+            label="unique_askers",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp12_dropdown_cs_cs1_tab3_IN"
+        ),
+        dmc.Select(
+            label="tenure",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp12_dropdown_ten_cs1_tab3_IN"
+        ),
+        html.Div(
+            [
+                dmc.Badge(
+                    id="comp12_cs1_text_tab3_OUT",
+                    size="lg",
+                    variant="filled",
+                    radius="xl",
+                    color="black",
+                    style={"color": "white"}
+                )
+            ],
+            className="flex-parent"
+        )
+        
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp12_cs1_dropdown_tab3_card"
+)
+
+comp17_customsegment2_dropdown_tab3 = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "Custom segment 2"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.Select(
+            label="user_activity_post_count",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp17_dropdown_ua_cs2_tab3_IN"
+        ),
+        dmc.Select(
+            label="speed_post_response",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp17_dropdown_spr_cs2_tab3_IN"
+        ),
+        dmc.Select(
+            label="unique_askers",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp17_dropdown_cs_cs2_tab3_IN"
+        ),
+        dmc.Select(
+            label="tenure",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp17_dropdown_ten_cs2_tab3_IN"
+        ),
+        html.Div(
+            [
+                dmc.Badge(
+                    id="comp17_cs2_text_tab3_OUT",
+                    size="lg",
+                    variant="filled",
+                    radius="xl",
+                    color="#9F90E8",
+                    style={"color": "white"}
+                ) 
+            ],
+            className="flex-parent"
+        )
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp17_cs2_dropdown_tab3_card"
+)
+
+
 comp7_center_filter_tab3 = html.Div(
     [
-        comp7_dropdown_tab3
+        comp7_dropdown_tab3,
+        comp12_customsegment1_dropdown_tab3,
+        comp17_customsegment2_dropdown_tab3,
+        comp15_topic_dropdown_tab3
     ],
     className="f f-parent"
 )
@@ -221,16 +504,14 @@ tab3 = html.Div(
 
 ############################################## tab 4 ##############################################
 comp9_dropdown_tab4 = dmc.Card(
-       [
-        dmc.SegmentedControl(
-            orientation="horizontal",
-            id="comp9_dropdown_sc_tab4_IN",
-            value="Broad",
-            style={"width": "100%"},
-            data=[
-                {"value": "Broad", "label": "Broad"},
-                {"value": "Niche", "label": "Niche"},
+    [
+       dmc.Text(
+            [
+                "Basic segments"
             ],
+            fw=500,
+            size="md",
+            className="text_header"
         ),
         dmc.MultiSelect(
             label="Country",
@@ -245,7 +526,7 @@ comp9_dropdown_tab4 = dmc.Card(
                 label="Segmentation",
                 placeholder="select...",
                 value="user_activity_post_count",
-                data=["user_activity_post_count", "speed_post_response", "conversation_starters", "tenure"],
+                data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp9_dropdown_segmentation_tab4_IN"
             ),
@@ -257,7 +538,35 @@ comp9_dropdown_tab4 = dmc.Card(
             clearable=False,
             id="comp9_dropdown_individual_segments_tab4_IN"
         ),
-        dmc.MultiSelect(
+
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t f-child comp7_dropdown_tab4_card"
+)
+
+comp16_topic_dropdown_tab4 = dmc.Card(
+    [
+       dmc.Text(
+            [
+                "Topic x time"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.SegmentedControl(
+            orientation="horizontal",
+            id="comp9_dropdown_sc_tab4_IN",
+            value="Broad",
+            style={"width": "100%"},
+            data=[
+                {"value": "Broad", "label": "Broad"},
+                {"value": "Niche", "label": "Niche"},
+            ],
+        ),
+       dmc.MultiSelect(
             label="Broad topic",
             placeholder="select multiple...",
             value=["livestock"],
@@ -287,12 +596,143 @@ comp9_dropdown_tab4 = dmc.Card(
     withBorder=True,
     shadow="sm",
     radius="md",
-    className="t f-child comp7_dropdown_tab3_card"
+    className="t comp16_topic_dropdown_tab4_card"
 )
+
+comp13_customsegment1_dropdown_tab4 = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "Custom segment 1"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.Select(
+            label="user_activity_post_count",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp13_dropdown_ua_cs1_tab4_IN"
+        ),
+        dmc.Select(
+            label="speed_post_response",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp13_dropdown_spr_cs1_tab4_IN"
+        ),
+        dmc.Select(
+            label="unique_askers",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp13_dropdown_cs_cs1_tab4_IN"
+        ),
+        dmc.Select(
+            label="tenure",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp13_dropdown_ten_cs1_tab4_IN"
+        ),
+        html.Div(
+            [
+                dmc.Badge(
+                    id="comp13_cs1_text_tab4_OUT",
+                    size="lg",
+                    variant="filled",
+                    radius="xl",
+                    color="#9F90E8",
+                    style={"color": "white"}
+                ) 
+            ],
+            className="flex-parent"
+        )
+
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp13_cs1_dropdown_tab4_card"
+)
+
+
+comp18_customsegment2_dropdown_tab4 = dmc.Card(
+    [
+        dmc.Text(
+            [
+                "Custom segment 2"
+            ],
+            fw=500,
+            size="md",
+            className="text_header"
+        ),
+        dmc.Select(
+            label="user_activity_post_count",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp18_dropdown_ua_cs2_tab4_IN"
+        ),
+        dmc.Select(
+            label="speed_post_response",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp18_dropdown_spr_cs2_tab4_IN"
+        ),
+        dmc.Select(
+            label="unique_askers",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp18_dropdown_cs_cs2_tab4_IN"
+        ),
+        dmc.Select(
+            label="tenure",
+            placeholder="intersection...",
+            value="None",
+            data=["None", "1", "2", "3", "4", "5"],
+            clearable=False,
+            id="comp18_dropdown_ten_cs2_tab4_IN"
+        ),
+        html.Div(
+            [
+                dmc.Badge(
+                    id="comp18_cs2_text_tab4_OUT",
+                    size="lg",
+                    variant="filled",
+                    radius="xl",
+                    color="black",
+                    style={"color": "white"}
+                ) 
+            ],
+            className="flex-parent"
+        )
+    ],
+    withBorder=True,
+    shadow="sm",
+    radius="md",
+    className="t comp18_cs2_dropdown_tab4_card"
+)
+
 
 comp9_center_filter_tab4 = html.Div(
     [
-        comp9_dropdown_tab4
+        comp9_dropdown_tab4,
+        comp13_customsegment1_dropdown_tab4,
+        comp18_customsegment2_dropdown_tab4,        
+        comp16_topic_dropdown_tab4
+
     ],
     className="f f-parent"
 )
@@ -330,9 +770,13 @@ Tabs = html.Div(
                             value="Geography"
                         ),
                         dmc.TabsTab(
-                            "Segments",
+                            "Basic segments",
                             leftSection=DashIconify(icon="material-symbols:modeling-outline-rounded", width=20, color="black", className="icons-2"),
                             value="Segments"),
+                        dmc.TabsTab(
+                            "Custom segments",
+                            leftSection=DashIconify(icon="ph:funnel-bold", width=20, color="black", className="icons-2"),
+                            value="Custom"),
                         dmc.TabsTab(
                             "Topics",
                             leftSection=DashIconify(icon="material-symbols:explore-outline-rounded", width=20, color="black", className="icons-2"),
@@ -340,7 +784,7 @@ Tabs = html.Div(
                         ),
                         dmc.TabsTab(
                             "Time",
-                            leftSection=DashIconify(icon="fluent:arrow-sort-up-lines-24-regular", width=20, color="black", className="icons-2"),
+                            leftSection=DashIconify(icon="ph:line-segments", width=20, color="black", className="icons-2"),
                             value="Time"
                         )
                     ]
@@ -352,6 +796,10 @@ Tabs = html.Div(
                 dmc.TabsPanel(
                     tab2,
                     value="Segments"
+                ),
+                dmc.TabsPanel(
+                    tab5,
+                    value="Custom"
                 ),
                 dmc.TabsPanel(
                     tab3,
@@ -382,7 +830,7 @@ title = dmc.Card(
             fw=600
             ),
         dmc.Text(
-            "WeFarm social media: English content responders",
+            """WeFarm SMS service: What questions were leaders asking?""",
             size="sm",
             fw=600
             )        
