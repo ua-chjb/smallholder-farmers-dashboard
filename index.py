@@ -396,7 +396,7 @@ comp7_dropdown_tab3 = dmc.Card(
             placeholder="select multiple...",
             value=["1", "5"],
             data=["1", "2", "3", "4", "5"],
-            clearable=True,
+            clearable=False,
             id="comp7_dropdown_individual_segment_tab3_IN"
         ),
         html.Div(
