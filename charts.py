@@ -38,29 +38,35 @@ tab1_geo_fig = px.choropleth_mapbox(
 })
 
 ############################################## tab 2 ##############################################
-def tab2_hist_fig(country_code, segmentation_name):
+def tab2_hist_fig(country_codes, segmentation_name):
 
   df = tab2_data[segmentation_name]
+  df_country =  df[df["question_user_country_code"].isin(country_codes)]
+  df_summed = df_country.groupby(segmentation_name, as_index=False)["n"].sum()
 
   fig = px.bar(
-    df[df["question_user_country_code"]==country_code], 
+    df_summed,
     x=segmentation_name, 
     y="n",
     color=segmentation_name,
     color_discrete_map=segment_colors_dct
   )
 
-  return fig.update_layout({
-    "title": {"text": f"{country_code}, {segmentation_name}", "x": 0.5},
+  return fig.update_traces(
+    marker_line_width=0
+  ).update_layout({
+    "title": {"text": f"{", ".join(country_codes)}, {segmentation_name}", "x": 0.5},
     "xaxis": {"title": "segments"},
   })
 
-def tab2_pie_fig(country_code, segmentation_name):
+def tab2_pie_fig(country_codes, segmentation_name):
 
   df = tab2_data[segmentation_name]
+  df_country =  df[df["question_user_country_code"].isin(country_codes)]
+  df_summed = df_country.groupby(segmentation_name, as_index=False)["n"].sum()
 
   fig = px.pie(
-    df[df["question_user_country_code"]==country_code], 
+    df_summed, 
     names=segmentation_name, 
     values="n",
     color=segmentation_name,
@@ -71,35 +77,35 @@ def tab2_pie_fig(country_code, segmentation_name):
   )
 
   return fig.update_layout({
-    "title": {"text": f"{country_code}, {segmentation_name}", "x": 0.5},
+    "title": {"text": f"{", ".join(country_codes)}, {segmentation_name}", "x": 0.5},
     "showlegend": False,
   })
 
 ############################################## tab 5 (2.5, between 2 and 3) ##############################################
 
-def tab5_funnel_fig(segment_values_dct):
+def tab5_funnel_fig(country_codes, segment_values_dct):
     
     labels = []
     values = []
     
     current_combo = {
-        "user_activity_post_count": ["1", "2", "3", "4", "5"],
-        "speed_post_response": ["1", "2", "3", "4", "5"],
-        "unique_askers": ["1", "2", "3", "4", "5"],
-        "tenure": ["1", "2", "3", "4", "5"]
+      "user_activity_post_count": ["1", "2", "3", "4", "5"],
+      "speed_post_response": ["1", "2", "3", "4", "5"],
+      "unique_askers": ["1", "2", "3", "4", "5"],
+      "tenure": ["1", "2", "3", "4", "5"]
     }
     
     key = json.dumps(current_combo, sort_keys=True)
-    labels.append("All users")
-    values.append(intersections["counts"][key]["total"])
+    labels.append("all users in region(s)")
+    values.append(sum(intersections["counts"][key]["by_country"][c] for c in country_codes))
   
     for segment_name, segment_value in segment_values_dct.items():
-        if segment_value and segment_value != "None":
-            current_combo[segment_name] = [segment_value]
-            key = json.dumps(current_combo, sort_keys=True)
-            
-            labels.append(f"{segment_name}: {segment_value}")
-            values.append(intersections["counts"][key]["total"])
+      if segment_value and segment_value != "None":
+        current_combo[segment_name] = [segment_value]
+        key = json.dumps(current_combo, sort_keys=True)
+        
+        labels.append(f"{segment_name}: {segment_value}")
+        values.append(sum(intersections["counts"][key]["by_country"][c] for c in country_codes))
     
     fig = go.Figure(
       go.Funnel(
@@ -111,9 +117,10 @@ def tab5_funnel_fig(segment_values_dct):
       )
     )
     
-    fig.update_layout(
-        title="Custom segment funnel",
-        showlegend=False
+    fig.update_layout({
+      "title": {"text": "Custom segment, funnel", "x": 0.5},
+      "showlegend": False
+      }
     )
     
     return fig
@@ -126,7 +133,9 @@ def tab3_bar_bigfig(
     segmentation_name, 
     individual_segment_lst,
     broad_category_lst,
+    switch_cs1,
     cs1_key_json,
+    switch_cs2,
     cs2_key_json
   ):
 
@@ -159,14 +168,28 @@ def tab3_bar_bigfig(
 
     segment_order_lst = ["1", "2", "3", "4", "5"]
     segment_final_lst = [j for j in segment_order_lst if j in individual_segment_lst]
-    for segment in segment_final_lst:
 
+    for segment in segment_final_lst:
       df_trace_broad = df_norm_broad[df_norm_broad[segmentation_name]==segment]
       df_trace_niche = df_norm_niche[df_norm_niche[segmentation_name]==segment]
       bigfig.add_trace(
         go.Bar(
           x=df_trace_broad["category"],
           y=df_trace_broad["pct"],
+          customdata=df_trace_broad["count"],
+          hovertemplate=(
+            "<b>%{x}</b><br>" +
+            "Percentage: %{y:.1%}<br>" +
+            "Sample size: %{customdata:,}<br>" +
+            "<extra></extra>"
+          ),
+          error_y={
+            "type": "data",
+            "array": df_trace_broad["se"],
+            "width": 0,
+            "thickness": 2,
+            "visible": True
+          },
           showlegend=(idx==0),
           marker={
             "color": df_trace_broad["segment_color"],
@@ -178,6 +201,20 @@ def tab3_bar_bigfig(
         go.Bar(
           x=df_trace_niche["category"],
           y=df_trace_niche["pct"],
+          customdata=df_trace_niche["count"],
+          hovertemplate=(
+            "<b>%{x}</b><br>" +
+            "Percentage: %{y:.1%}<br>" +
+            "Sample size: %{customdata:,}<br>" +
+            "<extra></extra>"
+          ),
+          error_y={
+            "type": "data",
+            "array": df_trace_niche["se"],
+            "width": 0,
+            "thickness": 2,
+            "visible": True
+          },
           showlegend=False,
           marker={
             "color": df_trace_niche["segment_color"],
@@ -187,7 +224,13 @@ def tab3_bar_bigfig(
         row=2, col=idx+1
       )
 
-    for idx_color, (df_cs_b, df_cs_n) in enumerate([(df_cs1_b, df_cs1_n), (df_cs2_b, df_cs2_n)]):
+    custom_segments_df_lst = []
+    if switch_cs1:
+      custom_segments_df_lst.append((df_cs1_b, df_cs1_n, "#9F90E8", "Custom 1"))
+    if switch_cs2:
+      custom_segments_df_lst.append((df_cs2_b, df_cs2_n, "black", "Custom 2"))
+
+    for idx_color, (df_cs_b, df_cs_n, color, name) in enumerate(custom_segments_df_lst):
 
       df_cs_b_country = df_cs_b[df_cs_b["question_user_country_code"]==country]
       df_cs_n_country = df_cs_n[df_cs_n["question_user_country_code"]==country]
@@ -201,20 +244,48 @@ def tab3_bar_bigfig(
         go.Bar(
           x=df_cs_b_country["category"],
           y=df_cs_b_country["pct"],
+          error_y={
+            "type": "data",
+            "array": df_cs_b_country["se"],
+            "thickness": 2,
+            "width": 0,
+            "visible": True,
+          },
+          customdata=df_cs_b_country["count"],
+          hovertemplate=(
+            "<b>%{x}</b><br>" +
+            "Percentage: %{y:.1%}<br>" +
+            "Sample size: %{customdata:,}<br>" +
+            "<extra></extra>"
+          ),
           showlegend=(idx==0),
           marker={
-            "color": ["#9F90E8", "black"][idx_color]
+            "color": color
           },
-          name=f"Custom {idx_color+1}"
+          name=name
         ),
         row=1, col=idx+1
       ).add_trace(
         go.Bar(
           x=df_cs_n_country["category"],
           y=df_cs_n_country["pct"],
+          error_y={
+            "type": "data",
+            "array": df_cs_n_country["se"],
+            "thickness": 2,
+            "width": 0,
+            "visible": True,
+          },
+          customdata=df_cs_n_country["count"],
+          hovertemplate=(
+            "<b>%{x}</b><br>" +
+            "Percentage: %{y:.1%}<br>" +
+            "Sample size: %{customdata:,}<br>" +
+            "<extra></extra>"
+          ),
           showlegend=False,
           marker={
-            "color": ["#9F90E8", "black"][idx_color]
+            "color": color
           },
         ),
         row=2, col=idx+1
@@ -246,16 +317,16 @@ def tab4_broad_bigfig(
     individual_segment_lst,
     broad_category_lst,
     time_slice,
+    switch_cs1,
     cs1_key_json,
+    switch_cs2,
     cs2_key_json
   ):
 
-  
-  df = tab4_data["broad"][segmentation_name][time_slice]
 
+  df = tab4_data["broad"][segmentation_name][time_slice]
   df_cs1 = intersections["time_broad"][cs1_key_json][time_slice]
   df_cs2 = intersections["time_broad"][cs2_key_json][time_slice]
-
 
   bigfig = make_subplots(
     len(broad_category_lst), len(country_codes),
@@ -287,6 +358,19 @@ def tab4_broad_bigfig(
           go.Scatter(
             x=df_segment[time_slice],
             y=df_segment["pct"],
+            customdata=df_segment["count"],
+            hovertemplate=(
+              "<b>%{x}</b><br>" +
+              "Percentage: %{y:.1%}<br>" +
+              "Sample size: %{customdata:,}<br>" +
+              "<extra></extra>"
+            ),
+            error_y={
+              "type": "data",
+              "array": df_segment["se"],
+              "thickness": 2,
+              "width": 0
+            },
             mode="lines+markers",
             marker={"color": df_segment["segment_color"].values},
             line={"color": df_segment["segment_color"].iloc[0]},
@@ -296,7 +380,13 @@ def tab4_broad_bigfig(
           row=idx_row+1, col=idx_col+1
         )
 
-      for idx_color, df_cs_b in enumerate([df_cs1, df_cs2]):
+      custom_segments_df_lst = []
+      if switch_cs1:
+        custom_segments_df_lst.append((df_cs1, "#9F90E8", "Custom 1"))
+      if switch_cs2:
+        custom_segments_df_lst.append((df_cs2, "black", "Custom 2"))
+
+      for idx_color, (df_cs_b, color, name) in enumerate(custom_segments_df_lst):
         df_cs_country = df_cs_b[df_cs_b["question_user_country_code"]==country]
         df_cs_cat = df_cs_country[df_cs_country["category"]==cat]
         all_y_lst.extend(df_cs_cat["pct"].tolist())
@@ -305,23 +395,31 @@ def tab4_broad_bigfig(
           go.Scatter(
             x=df_cs_cat[time_slice],
             y=df_cs_cat["pct"],
+            customdata=df_segment["count"],
+            hovertemplate=(
+              "<b>%{x}</b><br>" +
+              "Percentage: %{y:.1%}<br>" +
+              "Sample size: %{customdata:,}<br>" +
+              "<extra></extra>"
+            ),
+            error_y={
+              "type": "data",
+              "array": df_cs_cat["se"],
+              "thickness": 2,
+              "width": 0
+            },            
             mode="lines+markers",
-            marker={"color": ["#9F90E8", "black"][idx_color]},
+            marker={"color": color},
             showlegend=(idx_row==0 and idx_col==0),
-            name=f"Custom {idx_color+1}" 
+            name=name 
           ),
           row=idx_row+1, col=idx_col+1
         )
 
-  return set_consistent_yaxes(
-    bigfig.update_layout({
-      "height": 300 * len(broad_category_lst)
-    }),
-    all_y_lst,
-    niche=False
-  )
+  return bigfig.update_layout({
+    "height": 300 * len(broad_category_lst)
+  })
     
-
 def tab4_niche_bigfig(
     country_codes, 
     segmentation_name, 
@@ -329,7 +427,9 @@ def tab4_niche_bigfig(
     broad_category_lst, 
     niche_category_lst, 
     time_slice,
+    switch_cs1,
     cs1_key_json,
+    switch_cs2,
     cs2_key_json
   ):
 
@@ -375,16 +475,35 @@ def tab4_niche_bigfig(
           go.Scatter(
             x=df_segment[time_slice],
             y=df_segment["pct"],
-            mode="lines+markers",
+            customdata=df_segment["count"],
+            hovertemplate=(
+              "<b>%{x}</b><br>" +
+              "Percentage: %{y:.1%}<br>" +
+              "Sample size: %{customdata:,}<br>" +
+              "<extra></extra>"
+            ),
+            error_y={
+              "type": "data",
+              "array": df_segment["se"],
+              "thickness": 2,
+              "width": 0
+            },
+            mode="lines+markers",            
             marker={"color": df_segment["segment_color"].values},
             line={"color": df_segment["segment_color"].iloc[0]},
-            showlegend=(idx_row==0),
+            showlegend=(idx_row==0 and idx_col==0),
             name=segment
           ),
           row=idx_row+1, col=idx_col+1
         )
 
-      for idx_color, df_cs_n in enumerate([df_cs1, df_cs2]):
+      custom_segments_df_lst = []
+      if switch_cs1:
+        custom_segments_df_lst.append((df_cs1, "#9F90E8", "Custom 1"))
+      if switch_cs2:
+        custom_segments_df_lst.append((df_cs2, "black", "Custom 2"))
+
+      for idx_color, (df_cs_n, color, name) in enumerate(custom_segments_df_lst):
         df_cs_country = df_cs_n[df_cs_n["question_user_country_code"]==country]
         df_cs_cat = df_cs_country[df_cs_country["niche"]==cat]
         all_y_lst.extend(df_cs_cat["pct"].tolist())
@@ -393,19 +512,27 @@ def tab4_niche_bigfig(
           go.Scatter(
             x=df_cs_cat[time_slice],
             y=df_cs_cat["pct"],
+            customdata=df_cs_cat["count"],
+            hovertemplate=(
+              "<b>%{x}</b><br>" +
+              "Percentage: %{y:.1%}<br>" +
+              "Sample size: %{customdata:,}<br>" +
+              "<extra></extra>"
+            ),
+            error_y={
+              "type": "data",
+              "array": df_cs_cat["se"],
+              "thickness": 2,
+              "width": 0
+            },
             mode="lines+markers",
-            marker={"color": ["#9F90E8", "black"][idx_color]},
+            marker={"color": color},
             showlegend=(idx_row==0 and idx_col==0),
-            name="Custom" 
+            name=name
           ),
           row=idx_row+1, col=idx_col+1
         )
 
-  return set_consistent_yaxes(
-    bigfig.update_layout({
-      "height": 300 * len(niche_category_lst)
-    }).update_yaxes({"matches": "y"}),
-    all_y_lst,
-    niche=True
-  )
-
+  return bigfig.update_layout({
+    "height": 300 * len(niche_category_lst)
+  })
