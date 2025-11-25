@@ -28,6 +28,12 @@ tab1_geo_fig = px.choropleth_mapbox(
   center={"lat":0, "lon": 35},
   opacity=0.5,
   range_color=[0, vc_country.values.max()]
+).update_traces(
+  hovertemplate=(
+    "<b>%{location}</b><br>" +
+    "Number of users: %{z:,}<br>" +
+    "<extra></extra>"    
+  )
 ).update_layout({
   "title": {"text": "Number of users in geographic region", "x": 0.5},
   "coloraxis": {
@@ -89,10 +95,10 @@ def tab5_funnel_fig(country_codes, segment_values_dct):
     values = []
     
     current_combo = {
-      "user_activity_post_count": ["1", "2", "3", "4", "5"],
-      "speed_post_response": ["1", "2", "3", "4", "5"],
-      "unique_askers": ["1", "2", "3", "4", "5"],
-      "tenure": ["1", "2", "3", "4", "5"]
+      "Count": ["1", "2", "3", "4", "5"],
+      "Speed": ["1", "2", "3", "4", "5"],
+      "Reach": ["1", "2", "3", "4", "5"],
+      "Tenure": ["1", "2", "3", "4", "5"]
     }
     
     key = json.dumps(current_combo, sort_keys=True)

@@ -32,7 +32,7 @@ def callbacks_master(app):
     def callback_tab2_out(country, segmentation):
 
         if not country:
-            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()            
+            country = tab2_data["Count"]["question_user_country_code"].unique()            
 
         df_segmentation = tab2_data[segmentation]
         df_country = df_segmentation[df_segmentation["question_user_country_code"].isin(country)]
@@ -71,7 +71,7 @@ def callbacks_master(app):
         )
     def callback_tab5_out(country, ua_cs, spr_cs, cs_cs, ten_cs):
         if not country:
-            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()
+            country = tab2_data["Count"]["question_user_country_code"].unique()
         if not ua_cs:
             ua_cs = none_to_string(ua_cs)
         if not spr_cs:
@@ -82,10 +82,10 @@ def callbacks_master(app):
             ten_cs = none_to_string(ten_cs)
 
         cs_combo_dct = {
-            "unique_askers": none_to_list(cs_cs),
-            "speed_post_response": none_to_list(spr_cs),
-            "tenure": none_to_list(ten_cs),
-            "user_activity_post_count": none_to_list(ua_cs)
+            "Reach": none_to_list(cs_cs),
+            "Speed": none_to_list(spr_cs),
+            "Tenure": none_to_list(ten_cs),
+            "Count": none_to_list(ua_cs)
         }
 
         cs_key_json = json.dumps(cs_combo_dct, sort_keys=True)
@@ -93,10 +93,10 @@ def callbacks_master(app):
         cs_count = sum(intersections_sub_dct["by_country"][c] for c in country)
 
         segment_values_dct = {
-            "user_activity_post_count": ua_cs,
-            "speed_post_response": spr_cs,
-            "unique_askers": cs_cs,
-            "tenure": ten_cs
+            "Count": ua_cs,
+            "Speed": spr_cs,
+            "Reach": cs_cs,
+            "Tenure": ten_cs
         }
 
         return (
@@ -153,7 +153,7 @@ def callbacks_master(app):
         if not individual_segment_lst:
             individual_segment_lst = ["1", "2", "3", "4", "5"]
         if not country:
-            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()
+            country = tab2_data["Count"]["question_user_country_code"].unique()
         if not ua_cs1:
             ua_cs1 = none_to_string(ua_cs1)
         if not spr_cs1:
@@ -193,20 +193,20 @@ def callbacks_master(app):
             )
 
         cs1_combo_dct = {
-            "unique_askers": none_to_list(cs_cs1),
-            "speed_post_response": none_to_list(spr_cs1),
-            "tenure": none_to_list(ten_cs1),
-            "user_activity_post_count": none_to_list(ua_cs1)
+            "Reach": none_to_list(cs_cs1),
+            "Speed": none_to_list(spr_cs1),
+            "Tenure": none_to_list(ten_cs1),
+            "Count": none_to_list(ua_cs1)
         }
 
         cs1_key_json = json.dumps(cs1_combo_dct, sort_keys=True)
         cs1_count = intersections["counts"][cs1_key_json]["total"]
 
         cs2_combo_dct = {
-            "unique_askers": none_to_list(cs_cs2),
-            "speed_post_response": none_to_list(spr_cs2),
-            "tenure": none_to_list(ten_cs2),
-            "user_activity_post_count": none_to_list(ua_cs2)
+            "Reach": none_to_list(cs_cs2),
+            "Speed": none_to_list(spr_cs2),
+            "Tenure": none_to_list(ten_cs2),
+            "Count": none_to_list(ua_cs2)
         }
 
         cs2_key_json = json.dumps(cs2_combo_dct, sort_keys=True)
@@ -321,7 +321,7 @@ def callbacks_master(app):
         if not individual_segment_lst:
             individual_segment_lst = ["1", "2", "3", "4", "5"]
         if not country:
-            country = tab2_data["user_activity_post_count"]["question_user_country_code"].unique()
+            country = tab2_data["Count"]["question_user_country_code"].unique()
         if not ua_cs1:
             ua_cs1 = none_to_string(ua_cs1)
         if not spr_cs1:
@@ -361,10 +361,10 @@ def callbacks_master(app):
             )
 
         cs1_combo_dct = {
-            "unique_askers": none_to_list(cs_cs1),
-            "speed_post_response": none_to_list(spr_cs1),
-            "tenure": none_to_list(ten_cs1),
-            "user_activity_post_count": none_to_list(ua_cs1)
+            "Reach": none_to_list(cs_cs1),
+            "Speed": none_to_list(spr_cs1),
+            "Tenure": none_to_list(ten_cs1),
+            "Count": none_to_list(ua_cs1)
         }
 
         cs1_key_json = json.dumps(cs1_combo_dct, sort_keys=True)
@@ -372,10 +372,10 @@ def callbacks_master(app):
 
 
         cs2_combo_dct = {
-            "unique_askers": none_to_list(cs_cs2),
-            "speed_post_response": none_to_list(spr_cs2),
-            "tenure": none_to_list(ten_cs2),
-            "user_activity_post_count": none_to_list(ua_cs2)
+            "Reach": none_to_list(cs_cs2),
+            "Speed": none_to_list(spr_cs2),
+            "Tenure": none_to_list(ten_cs2),
+            "Count": none_to_list(ua_cs2)
         }
 
         cs2_key_json = json.dumps(cs2_combo_dct, sort_keys=True)

@@ -87,15 +87,15 @@ comp4_dropdown_tab2 = dmc.Card(
         dmc.MultiSelect(
                 label="Country",
                 placeholder="select...",
-                value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
-                data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+                value=tab2_data["Count"]["question_user_country_code"].unique(),
+                data=tab2_data["Count"]["question_user_country_code"].unique(),
                 clearable=False,
                 id="comp4_dropdown_country_tab2_IN"
             ),
         dmc.Select(
                 label="Segmentation",
                 placeholder="select...",
-                value="user_activity_post_count",
+                value="Count",
                 data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp4_dropdown_segmentation_tab2_IN"
@@ -194,7 +194,7 @@ comp14_description_text_tab2 = dmc.Card(
         ),
         dmc.Text(
             [
-                "Each segmentation is created on an ordinal scale of 1 to 5, with 1 being the least leaderlike behavior and 5 being the most leaderlike behavior. Buckets were created manually from analyzing the distribution of the variable."
+                "Each segmentation is created on an ordinal scale of 1 to 5, with 1 being low, and being high. Buckets were created manually from analyzing the distribution of the variable."
             ],
             size="xs",
             c="gray",
@@ -202,7 +202,7 @@ comp14_description_text_tab2 = dmc.Card(
         ),
         dmc.Text(
             [
-                """For example, in the "speed_post_response" segmentation, which examined how fast a user responded to a question, segment 5 is comprised of users who responded within thirty seconds, segement 4 is users who responded between thirty seconds and two minutes, segment 3 is users who responded between three minutes and twelve minutes, segment 2 is users who responded between twelve minutes and three days, and segment 1 is users who responded after three days."""
+                """For example, in the "Speed" segmentation, which examined how fast a user responded to a question, segment 5 is comprised of users who responded within thirty seconds, segement 4 is users who responded between thirty seconds and two minutes, segment 3 is users who responded between three minutes and twelve minutes, segment 2 is users who responded between twelve minutes and three days, and segment 1 is users who responded after three days."""
             ],
             size="xs",
             c="gray",
@@ -266,14 +266,14 @@ comp19_dropdown_cs_tab5 = dmc.Card(
         dmc.MultiSelect(
             label="Country",
             placeholder="select multiple...",
-            value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
-            data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+            value=tab2_data["Count"]["question_user_country_code"].unique(),
+            data=tab2_data["Count"]["question_user_country_code"].unique(),
             maxValues=2,
             clearable=False,
             id="comp19_dropdown_country_cs_tab5_IN"
         ),        
         dmc.Select(
-            label="user_activity_post_count",
+            label="Count",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -281,7 +281,7 @@ comp19_dropdown_cs_tab5 = dmc.Card(
             id="comp19_dropdown_ua_cs_tab5_IN"
         ),
         dmc.Select(
-            label="speed_post_response",
+            label="Speed",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -289,7 +289,7 @@ comp19_dropdown_cs_tab5 = dmc.Card(
             id="comp19_dropdown_spr_cs_tab5_IN"
         ),
         dmc.Select(
-            label="unique_askers",
+            label="Reach",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -297,7 +297,7 @@ comp19_dropdown_cs_tab5 = dmc.Card(
             id="comp19_dropdown_cs_cs_tab5_IN"
         ),
         dmc.Select(
-            label="tenure",
+            label="Tenure",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -360,8 +360,8 @@ comp22_dropdown_country_tab3 = dmc.Card(
         dmc.MultiSelect(
             label="Country",
             placeholder="select multiple...",
-            value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
-            data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+            value=tab2_data["Count"]["question_user_country_code"].unique(),
+            data=tab2_data["Count"]["question_user_country_code"].unique(),
             maxValues=2,
             clearable=False,
             id="comp7_dropdown_country_tab3_IN"
@@ -386,7 +386,7 @@ comp7_dropdown_tab3 = dmc.Card(
         dmc.Select(
                 label="Segmentation",
                 placeholder="...",
-                value="user_activity_post_count",
+                value="Count",
                 data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp7_dropdown_segmentation_tab3_IN"
@@ -425,7 +425,7 @@ comp15_topic_dropdown_tab3 = dmc.Card(
             label="Broad topic",
             placeholder="select multiple...",
             value=["livestock"],
-            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
+            data=tab3_data["niche"]["Count"]["broad_type"].unique(),
             clearable=True,
             maxValues=4,
             id="comp7_dropdown_b_topic_tab3_IN"
@@ -453,7 +453,7 @@ comp12_customsegment1_dropdown_tab3 = dmc.Card(
             className="text_header",
         ),
         dmc.Select(
-            label="user_activity_post_count",
+            label="Count",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -461,7 +461,7 @@ comp12_customsegment1_dropdown_tab3 = dmc.Card(
             id="comp12_dropdown_ua_cs1_tab3_IN"
         ),
         dmc.Select(
-            label="speed_post_response",
+            label="Speed",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -469,7 +469,7 @@ comp12_customsegment1_dropdown_tab3 = dmc.Card(
             id="comp12_dropdown_spr_cs1_tab3_IN"
         ),
         dmc.Select(
-            label="unique_askers",
+            label="Reach",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -477,7 +477,7 @@ comp12_customsegment1_dropdown_tab3 = dmc.Card(
             id="comp12_dropdown_cs_cs1_tab3_IN"
         ),
         dmc.Select(
-            label="tenure",
+            label="Tenure",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -521,7 +521,7 @@ comp17_customsegment2_dropdown_tab3 = dmc.Card(
             className="text_header",
         ),
         dmc.Select(
-            label="user_activity_post_count",
+            label="Count",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -529,7 +529,7 @@ comp17_customsegment2_dropdown_tab3 = dmc.Card(
             id="comp17_dropdown_ua_cs2_tab3_IN"
         ),
         dmc.Select(
-            label="speed_post_response",
+            label="Speed",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -537,7 +537,7 @@ comp17_customsegment2_dropdown_tab3 = dmc.Card(
             id="comp17_dropdown_spr_cs2_tab3_IN"
         ),
         dmc.Select(
-            label="unique_askers",
+            label="Reach",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -545,7 +545,7 @@ comp17_customsegment2_dropdown_tab3 = dmc.Card(
             id="comp17_dropdown_cs_cs2_tab3_IN"
         ),
         dmc.Select(
-            label="tenure",
+            label="Tenure",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -622,8 +622,8 @@ comp35_dropdown_country_tab4 = dmc.Card(
         dmc.MultiSelect(
             label="Country",
             placeholder="select multiple...",
-            value=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
-            data=tab2_data["user_activity_post_count"]["question_user_country_code"].unique(),
+            value=tab2_data["Count"]["question_user_country_code"].unique(),
+            data=tab2_data["Count"]["question_user_country_code"].unique(),
             maxValues=2,
             clearable=False,
             id="comp9_dropdown_country_tab4_IN"
@@ -649,7 +649,7 @@ comp9_dropdown_tab4 = dmc.Card(
         dmc.Select(
                 label="Segmentation",
                 placeholder="select...",
-                value="user_activity_post_count",
+                value="Count",
                 data=list(tab2_data.keys()),
                 clearable=False,
                 id="comp9_dropdown_segmentation_tab4_IN"
@@ -678,7 +678,7 @@ comp16_topic_dropdown_tab4 = dmc.Card(
     [
        dmc.Text(
             [
-                "Topic x time"
+                "Topic over time"
             ],
             fw=500,
             size="md",
@@ -698,7 +698,7 @@ comp16_topic_dropdown_tab4 = dmc.Card(
             label="Broad topic",
             placeholder="select multiple...",
             value=["livestock"],
-            data=tab3_data["niche"]["user_activity_post_count"]["broad_type"].unique(),
+            data=tab3_data["niche"]["Count"]["broad_type"].unique(),
             maxValues=4,
             clearable=True,
             id="comp9_dropdown_b_topic_tab4_IN"
@@ -707,7 +707,7 @@ comp16_topic_dropdown_tab4 = dmc.Card(
             label="Niche topic",
             placeholder="select multiple...",
             value=["animals"],
-            data=tab3_data["niche"]["user_activity_post_count"]["niche"].unique(),
+            data=tab3_data["niche"]["Count"]["niche"].unique(),
             maxValues=4,
             clearable=True,
             id="comp9_dropdown_n_topic_tab4_IN"
@@ -715,8 +715,8 @@ comp16_topic_dropdown_tab4 = dmc.Card(
         dmc.Select(
             label="Time slice",
             placeholder="select...",
-            value=list(tab4_data["broad"]["user_activity_post_count"].keys())[0],
-            data=list(tab4_data["broad"]["user_activity_post_count"].keys()),
+            value=list(tab4_data["broad"]["Count"].keys())[0],
+            data=list(tab4_data["broad"]["Count"].keys()),
             clearable=True,
             id="comp9_dropdown_time_tab4_IN"
         ) 
@@ -742,7 +742,7 @@ comp13_customsegment1_dropdown_tab4 = dmc.Card(
             className="text_header",
         ),
         dmc.Select(
-            label="user_activity_post_count",
+            label="Count",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -750,7 +750,7 @@ comp13_customsegment1_dropdown_tab4 = dmc.Card(
             id="comp13_dropdown_ua_cs1_tab4_IN"
         ),
         dmc.Select(
-            label="speed_post_response",
+            label="Speed",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -758,7 +758,7 @@ comp13_customsegment1_dropdown_tab4 = dmc.Card(
             id="comp13_dropdown_spr_cs1_tab4_IN"
         ),
         dmc.Select(
-            label="unique_askers",
+            label="Reach",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -766,7 +766,7 @@ comp13_customsegment1_dropdown_tab4 = dmc.Card(
             id="comp13_dropdown_cs_cs1_tab4_IN"
         ),
         dmc.Select(
-            label="tenure",
+            label="Tenure",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -811,7 +811,7 @@ comp18_customsegment2_dropdown_tab4 = dmc.Card(
             className="text_header",
         ),
         dmc.Select(
-            label="user_activity_post_count",
+            label="Count",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -819,7 +819,7 @@ comp18_customsegment2_dropdown_tab4 = dmc.Card(
             id="comp18_dropdown_ua_cs2_tab4_IN"
         ),
         dmc.Select(
-            label="speed_post_response",
+            label="Speed",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -827,7 +827,7 @@ comp18_customsegment2_dropdown_tab4 = dmc.Card(
             id="comp18_dropdown_spr_cs2_tab4_IN"
         ),
         dmc.Select(
-            label="unique_askers",
+            label="Reach",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
@@ -835,7 +835,7 @@ comp18_customsegment2_dropdown_tab4 = dmc.Card(
             id="comp18_dropdown_cs_cs2_tab4_IN"
         ),
         dmc.Select(
-            label="tenure",
+            label="Tenure",
             placeholder="intersection...",
             value="None",
             data=["None", "1", "2", "3", "4", "5"],
