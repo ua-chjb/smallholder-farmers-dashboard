@@ -4,14 +4,20 @@ import pickle
 import time
 import gzip
 
-if os.getenv("GAE_ENV") is None:
+
+if os.path.exists("/home/ubuntu"):
+    ssm = boto3.client("ssm", region_name="us-west-1")
+    aws_access_key = ssm.get_parameter(Name="S3_ACCESS_KEY", WithDecryption=True)["Parameter"]["Value"]
+    aws_secret_key = ssm.get_parameter(Name="S3_SECRET_KEY", WithDecryption=True)["Parameter"]["Value"]
+else:
     from dotenv import load_dotenv
     load_dotenv()
+    aws_access_key = os.environ["AWS_ACCESS_KEY_ID"]
+    aws_secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
 
-aws_access_key = os.environ["AWS_ACCESS_KEY_ID"]
-aws_secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
-aws_region     = os.environ["AWS_REGION"]
-aws_bucket     = os.environ["AWS_S3_BUCKET"]
+
+aws_region = "us-west-1"
+aws_bucket = "datakit-farmers-dashboard"
 
 s3 = boto3.client(
     "s3",
