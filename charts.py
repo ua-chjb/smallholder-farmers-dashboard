@@ -113,7 +113,7 @@ def tab6_cooccurring_ratios_scatter():
 def tab6_correlation_heatmap():
   return px.imshow(
     tab6_data["corr"],
-    text_auto=True,
+    text_auto=False,
     zmin=-1,
     zmax=1,
     color_continuous_scale="RdYlBu_r"
