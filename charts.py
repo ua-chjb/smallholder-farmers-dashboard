@@ -658,6 +658,11 @@ def tab7_individual_pc(pc):
     column_widths=[0.2, 0.6, 0.2],
     specs=[[{"type": "table"}, {"type": "heatmap"}, {"type": "table"}]],
     horizontal_spacing=0.02,
+    subplot_titles= (
+      "Segments, negative corr with PC",
+      "",
+      "Segments, positive corr with PC"
+    )
   )
 
   fig.add_trace(
