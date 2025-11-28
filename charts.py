@@ -630,7 +630,7 @@ def tab7_bigfig_all_pc():
 
   fig.update_layout({
     "template": "plotly_white",
-    "title": {"text": "All principal components that explain at least 1% of the variance (top 26)", "x": 0.5},
+    "title": {"text": "All principal components that explain at least 1% of the variance (top 25)", "x": 0.5},
     "height": 825,
     "xaxis": {"tickfont": {"size": 8}},
     "yaxis": {"tickfont": {"size": 8}, "domain": [0, 0.96]}
