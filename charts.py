@@ -713,7 +713,7 @@ def tab7_individual_pc(pc):
   )
 
   fig.update_layout({
-    "title": {"text": f"{pc} variance scores", "x": 0.5},
+    "title": {"text": f"{pc} loadings", "x": 0.5},
   }).update_yaxes({
     "showticklabels": False,
     "domain": [0.7, 1.0],
