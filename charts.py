@@ -638,6 +638,7 @@ def tab7_bigfig_all_pc():
     "showgrid": False  
   }, row=1, col=2
   ).update_xaxes({
+    "tickangle": 90,
     "showgrid": False  
   }, row=1, col=2
   )
