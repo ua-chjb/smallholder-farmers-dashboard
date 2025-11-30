@@ -194,7 +194,7 @@ comp14_description_text_tab2 = dmc.Card(
         ),
         dmc.Text(
             [
-                "Each segmentation is created on an ordinal scale of 1 to 5, with 1 being low, and being high. Buckets were created manually from analyzing the distribution of the variable."
+                "Each segmentation is created on an ordinal scale of 1 to 5, with 1 being low, and 5 being high. Buckets were created manually from analyzing the distribution of the variable."
             ],
             size="xs",
             c="gray",
