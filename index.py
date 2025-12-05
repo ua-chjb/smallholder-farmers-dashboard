@@ -211,7 +211,7 @@ comp14_description_text_tab2 = dmc.Card(
         dmc.Text(
             [
                 dcc.Markdown(
-                    """Each segment comprises at least 5% of the data. The notebook that defines the segment bins can be found [here] (https://github.com/datakind/datakit-smallholder-farmers-fall-2025/blob/main/Challenge%203_Community%20Leaders/benjamin_noyes/05_groupby_segmentation/DataKit_Challenge_3_identifying_community_leaders_leader_analysis_groupbys%20(3).ipynb).""",
+                    """Each segment comprises at least 5% of the data. The notebook that defines the segment bins can be found [here] (https://github.com/ua-chjb/datakit-smallholder-farmers-fall-2025/blob/main/Challenge%203_Community%20Leaders/benjamin_noyes/02_dashboard_pipeline/PIPE1_buckets.ipynb).""",
                     link_target="_blank",
                 ),
             ],
